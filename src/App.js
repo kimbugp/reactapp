@@ -1,18 +1,68 @@
 import React, { Component } from "react";
-import "./App.css";
 import Navbar from "./components/navbar";
-import Footer from './components/footer'
+import Footer from "./components/footer";
+import Signin from "./components/signin";
 
-class App extends Component {
+class App  extends Component {
+  state = { data: ["peter", "simon"] };
+  addName=(name)=>{
+    this.setState(prevState=>({data:prevState.data(name)}))
+    // this.setState({data:['fdfd','dfsfds','dsffsd','sdffs']})
+  };
   render() {
-    console.log(this.props)
     return (
       <div className="App">
         <Navbar />
-        <Footer/>
+        <Footer />
+        <AddEntry onSubmit={this.addName}/>
+        <Names data={this.state.data} />
       </div>
     );
   }
 }
 
-export default App;
+class Login extends Component {
+  state = {};
+  render() {
+    return (
+      <div>
+        <Signin />
+        <Footer />
+      </div>
+    );
+  }
+}
+
+const Names = props => {
+  console.log(props.data);
+  return (
+    <div>
+      <ul>
+        {props.data.map(name => (
+          <li>{name}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+class AddEntry extends Component {
+  // state={name:''}
+  handleSubmit=(event)=>{
+    event.preventDefault();
+    // this.setState({name:this.nameInput.value})
+    this.props.onSubmit(this.nameInput.value)
+  }
+  render() {
+    return (
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <input type="text" ref={(input)=>this.nameInput=input}/>
+          <button type="submit">Add data</button>
+        </form>
+      </div>
+    );
+  }
+}
+
+export { App, Login };
