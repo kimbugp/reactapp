@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import "./navbar.css";
-import Routes from "./routes";
+import {Routes} from "./routes";
 
 const Urls = () => {
   return (

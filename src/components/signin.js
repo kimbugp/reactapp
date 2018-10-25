@@ -1,9 +1,17 @@
 import React, { Component } from "react";
-// import "./footer.css";
+import { AddEntry } from "./routes";
 class SigninForm extends Component {
-  state = {};
+  state = { data: ["peter", "simon"] };
+  addName = name => {
+    this.setState(prevState => ({ data: prevState.data.concat(name) }));
+  };
   render() {
-    return <div>hello</div>;
+    return (
+      <div>
+        <h1>Hello</h1>
+        <AddEntry onSubmit={this.addName} />
+      </div>
+    );
   }
 }
 
