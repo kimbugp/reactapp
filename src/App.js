@@ -6,8 +6,7 @@ import Signin from "./components/signin";
 class App  extends Component {
   state = { data: ["peter", "simon"] };
   addName=(name)=>{
-    this.setState(prevState=>({data:prevState.data(name)}))
-    // this.setState({data:['fdfd','dfsfds','dsffsd','sdffs']})
+    this.setState(prevState=>({data:prevState.data.concat(name)}))
   };
   render() {
     return (
