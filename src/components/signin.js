@@ -1,27 +1,26 @@
 import React, { Component } from "react";
-import { AddEntry } from "./routes";
-class SigninForm extends Component {
-  state = { data: ["peter", "simon"] };
-  addName = name => {
-    this.setState(prevState => ({ data: prevState.data.concat(name) }));
-  };
-  render() {
-    return (
-      <div>
-        <h1>Hello</h1>
-        <AddEntry onSubmit={this.addName} />
-      </div>
-    );
-  }
-}
-
+import SigninForm from "./signinform";
+import "../css/navbar.css";
+import signin from "../actions/LoginAction";
+import Loader from "./loader";
 class Signin extends Component {
-  state = {};
+  state = { display: "" };
+  getInput = props => {
+    this.setState(prevState => ({ data: (prevState.display = "block") }));
+    signin(props, this.state.display);
+
+  };
+
   render() {
     return (
       <div>
-        <div>My Diary</div>
-        <SigninForm />
+        <nav className="navbar">
+          <ul className="navbar">
+            <div className="sign-heading">My Diary</div>
+          </ul>
+        </nav>
+        <Loader style={this.state.display} />
+        <SigninForm onSubmit={this.getInput} />
       </div>
     );
   }

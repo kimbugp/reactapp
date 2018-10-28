@@ -1,28 +1,19 @@
 import React, { Component } from "react";
-import Navbar from "./components/navbar";
 import Footer from "./components/footer";
-import SignIn from "./components/signin";
+import { Routes } from "../src/components/routes";
+import { BrowserRouter as Router } from "react-router-dom";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <Navbar />
+      <div>
+        <Router>
+          <Routes />
+        </Router>
         <Footer />
       </div>
     );
   }
 }
 
-class Login extends Component {
-  state = {};
-  render() {
-    return (
-      <div>
-        <SignIn />
-      </div>
-    );
-  }
-}
-
-export { App, Login };
+export default App;

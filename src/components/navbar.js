@@ -1,22 +1,28 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Link } from "react-router-dom";
-import "./navbar.css";
-import {Routes} from "./routes";
+import "../css/navbar.css";
 
 const Urls = () => {
   return (
     <div>
       <li className="navbar">
-        <Link to="/home">Home</Link>
+        <a href="/home" >
+          Home
+        </a>
       </li>
       <li className="navbar">
-        <Link to="/profile">Profile</Link>
+        <a href="/profile" >
+          Profile
+        </a>
       </li>
       <li className="navbar">
-        <Link to="/about">About</Link>
+        <a href="/about" >
+          About
+        </a>
       </li>
       <li className="navbar" id="signout">
-        <Link to="/signout">Logout</Link>
+        <a href="/signout" >
+          Logout
+        </a>
       </li>
     </div>
   );
@@ -24,14 +30,11 @@ const Urls = () => {
 class Navbar extends Component {
   render() {
     return (
-      <Router>
-        <nav>
-          <ul className='navbar'>
-            <Urls />
-          </ul>
-          <Routes />
-        </nav>
-      </Router>
+      <nav>
+        <ul className="navbar">
+          <Urls />
+        </ul>
+      </nav>
     );
   }
 }

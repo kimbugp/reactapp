@@ -1,67 +1,42 @@
-import { Switch, Route } from "react-router-dom";
 import React, { Component } from "react";
-const Profile = () => <h1>Profile</h1>;
-const Login = () => <h1>login</h1>;
-const About = () => <h1>About</h1>;
-const Logout = () => <h1>You have been logged out</h1>;
+import { Redirect, Route, Switch } from "react-router-dom";
 
-class Home extends Component {
-  state = { data: ["peter", "simon"] };
-  addName = name => {
-    this.setState(prevState => ({ data: prevState.data.concat(name) }));
-  };
-  render() {
-    return (
-      <div>
-        <h1>Home Page</h1>
-        <AddEntry onSubmit={this.addName} />
-        <Names data={this.state.data} />
-      </div>
-    );
-  }
-}
-const Names = props => {
+import  Authenticate from "../actions/CheckAuthentication";
+import { Home } from "../components/home";
+import Signin from "../components/signin";
+import Signout from './signout';
+
+const NotFound = () => <h1>Page not Found</h1>;
+const ProtectedRoute = ({ component: Component, ...props }) => {
+  const isLoggedIn = Authenticate.isLoggedIn();
   return (
-    <div>
-      <ul>
-        {props.data.map(name => (
-          <li key={name}>{name}</li>
-        ))}
-      </ul>
-    </div>
+    <Route
+      {...props}
+      render={props =>
+        isLoggedIn ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to="/login" />
+        )
+      }
+    />
   );
 };
-class AddEntry extends Component {
-  handleSubmit = event => {
-    event.preventDefault();
-    this.props.onSubmit(this.nameInput.value);
-  };
-  render() {
-    return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <input type="text" ref={input => (this.nameInput = input)} />
-          <button type="submit">Add data</button>
-        </form>
-      </div>
-    );
-  }
-}
 
 class Routes extends Component {
-  state = {};
   render() {
     return (
       <Switch>
-        <Route path="/profile" component={Profile} />
-        <Route path="/login" component={Login} />
-        <Route path="/about" component={About} />
-        <Route path="/home" component={Home} />
-        <Route path="/signout" component={Logout} />
-        <Route component={Login} />
+        <ProtectedRoute path="/profile" component={Home} />
+        <Route path="/login" component={Signin} />
+        <ProtectedRoute path="/about" component={Home} />
+        <ProtectedRoute path="/" component={Home} />
+        <ProtectedRoute path="/signout" component={Signout}/>
+        <Route path="/forgot" component={Home} />
+        <Route component={NotFound} />
       </Switch>
     );
   }
 }
 
-export { Routes, AddEntry };
+export { Routes };
